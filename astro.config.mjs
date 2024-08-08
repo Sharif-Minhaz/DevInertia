@@ -9,7 +9,7 @@ import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
-	site: "https://example.com",
+	site: "https://dev-inertia.vercel.app",
 	integrations: [
 		mdx(),
 		sitemap(),
@@ -17,13 +17,7 @@ export default defineConfig({
 		react(),
 		icon({
 			include: {
-				mdi: [
-					"home-account",
-					"blog-outline",
-					"about-circle-outline",
-					"weather-night",
-					"white-balance-sunny",
-				],
+				mdi: ["home-account", "blog-outline", "about-circle-outline"],
 			},
 		}),
 	],
