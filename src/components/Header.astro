@@ -1,18 +1,62 @@
 ---
+import { Icon } from "astro-icon/components";
 import HeaderLink from "./HeaderLink.astro";
-import { SITE_TITLE } from "../consts";
-import SocialLinks from "./SocialLinks.astro";
+import { SITE_TITLE, NAV_LINKS } from "../consts";
+import ThemeSwitcher from "./ThemeSwitcher.astro";
+
+const session = false;
 ---
 
 <header>
 	<nav>
-		<h2 class="font-bold text-slate-600"><a href="/">{SITE_TITLE}</a></h2>
-		<div class="internal-links">
-			<HeaderLink href="/">Home</HeaderLink>
-			<HeaderLink href="/blog">Blog</HeaderLink>
-			<HeaderLink href="/about">About</HeaderLink>
+		<h2 class="font-bold text-slate-600">
+			<a href="/"
+				><span class="hidden sm:inline">{SITE_TITLE}</span>
+				<span class="sm:hidden inline">
+					<img class="w-[25px] h-[25px]" src="/favicon.png" alt="dev inertia icon" />
+				</span></a
+			>
+		</h2>
+		<div class="internal-links flex items-center">
+			{
+				NAV_LINKS.map((navLink) => (
+					<HeaderLink href={navLink.url}>
+						<span class="hidden sm:inline">{navLink.name}</span>
+						<span class="sm:hidden inline">
+							<Icon class="text-[25px]" name={navLink.icon} />
+						</span>
+					</HeaderLink>
+				))
+			}
 		</div>
-		<SocialLinks hiddenOnSmallScreen />
+		<div class="flex items-center">
+			<ThemeSwitcher client:load />
+			{
+				session ? (
+					<div>
+						<a href="/profile">
+							<img
+								src="https://randomuser.me/api/portraits/men/4.jpg"
+								alt="profile picture"
+							/>
+						</a>
+					</div>
+				) : (
+					<div class="text-[14px] flex items-center gap-2">
+						<a
+							style="border-bottom: 0px solid transparent;"
+							href="/sign-in"
+							class="select-none pt-[17px]"
+						>
+							Sign in
+						</a>
+						<button class="bg-slate-900 select-none hidden md:inline-flex items-center rounded-full px-3 pt-[5px] py-1 text-yellow-50">
+							Get started
+						</button>
+					</div>
+				)
+			}
+		</div>
 	</nav>
 </header>
 <style>
